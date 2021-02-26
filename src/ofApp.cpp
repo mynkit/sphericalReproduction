@@ -23,7 +23,6 @@ void ofApp::draw(){
     sphere.set(10, 32);
     sphere.draw();
     img.unbind();
-    ofPopMatrix();
     cam.end();
 }
 
