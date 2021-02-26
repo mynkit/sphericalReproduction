@@ -1,0 +1,8 @@
+bin/sphericalReproduction.app/
+bin/sphericalReproductionDebug.app/
+/obj/
+/.vscode/
+*.DS_Store
+.venv/
+*.png
+*.jpg
