@@ -23,6 +23,13 @@ void ofApp::draw(){
     sphere.set(10, 32);
     sphere.draw();
     img.unbind();
+    // 360度画像空間内にオブジェクトを描画
+    box.set(1);
+    box.setPosition(5, 0, -3);
+    box.drawWireframe();
+    sphere2.set(3, 16);
+    sphere2.setPosition(-2, 1, -10);
+    sphere2.drawWireframe();
     cam.end();
 }
 

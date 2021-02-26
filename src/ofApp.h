@@ -24,4 +24,6 @@ class ofApp : public ofBaseApp{
         ofImage img;
         ofEasyCam cam;
         ofSpherePrimitive sphere;
+        ofBoxPrimitive box;
+        ofSpherePrimitive sphere2;
 };
