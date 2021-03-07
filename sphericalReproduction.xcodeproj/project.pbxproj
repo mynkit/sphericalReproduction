@@ -9,6 +9,209 @@
 		<string>46</string>
 		<key>objects</key>
 		<dict>
+			<key>5E025EAD4C95B611BFE26F7C</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>8C36B274C8F70E7CDE525AC3</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>src</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>8C36B274C8F70E7CDE525AC3</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxReverb.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/src/ofxReverb.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>BC7102A89DE87CA084D4099D</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>tuning.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/libs/tuning.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>CCEF707189733DC0E3922D37</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>revmodel.hpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/libs/revmodel.hpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>4D818F2B33CCAE20B3ACEBCD</key>
+			<dict>
+				<key>fileRef</key>
+				<string>176580196663C59FB3D76784</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>176580196663C59FB3D76784</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>revmodel.cpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/libs/revmodel.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>D802614870C6DEE044965E89</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>denormals.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/libs/denormals.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>7292868FE2D901CC63F7F94A</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>comb.hpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/libs/comb.hpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>43FFE5A7FCAB58406F31511A</key>
+			<dict>
+				<key>fileRef</key>
+				<string>6AD72C435068D62F270812E4</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>6AD72C435068D62F270812E4</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>comb.cpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/libs/comb.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>50FECBF169B8D396F702EC49</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>allpass.hpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/libs/allpass.hpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>ABEAF9302FC23ADEE5CCD7FC</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>1283FB785281B120BEB53515</string>
+					<string>50FECBF169B8D396F702EC49</string>
+					<string>6AD72C435068D62F270812E4</string>
+					<string>7292868FE2D901CC63F7F94A</string>
+					<string>D802614870C6DEE044965E89</string>
+					<string>176580196663C59FB3D76784</string>
+					<string>CCEF707189733DC0E3922D37</string>
+					<string>BC7102A89DE87CA084D4099D</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>libs</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>F7AC7E9D8CD8005D7ABF1B5A</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>ABEAF9302FC23ADEE5CCD7FC</string>
+					<string>5E025EAD4C95B611BFE26F7C</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>ofxReverb</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>961C938A9DE29978E6071159</key>
+			<dict>
+				<key>fileRef</key>
+				<string>1283FB785281B120BEB53515</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>1283FB785281B120BEB53515</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>allpass.cpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxReverb/libs/allpass.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>6948EE371B920CB800B5AC1A</key>
 			<dict>
 				<key>children</key>
@@ -179,6 +382,9 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxReverb/libs</string>
+						<string>../../../addons/ofxReverb/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -221,6 +427,9 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxReverb/libs</string>
+						<string>../../../addons/ofxReverb/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_RELEASE)</string>
@@ -255,7 +464,9 @@ fi
 			<key>BB4B014C10F69532006C3DED</key>
 			<dict>
 				<key>children</key>
-				<array />
+				<array>
+					<string>F7AC7E9D8CD8005D7ABF1B5A</string>
+				</array>
 				<key>isa</key>
 				<string>PBXGroup</string>
 				<key>name</key>
@@ -3020,6 +3231,9 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxReverb/libs</string>
+						<string>../../../addons/ofxReverb/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -3082,6 +3296,9 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxReverb/libs</string>
+						<string>../../../addons/ofxReverb/src</string>
 					</array>
 					<key>MACOSX_DEPLOYMENT_TARGET</key>
 					<string>10.9</string>
@@ -3108,6 +3325,9 @@ fi
 				<array>
 					<string>E4B69E200A3A1BDC003C02F2</string>
 					<string>E4B69E210A3A1BDC003C02F2</string>
+					<string>961C938A9DE29978E6071159</string>
+					<string>43FFE5A7FCAB58406F31511A</string>
+					<string>4D818F2B33CCAE20B3ACEBCD</string>
 				</array>
 				<key>isa</key>
 				<string>PBXSourcesBuildPhase</string>
@@ -3207,6 +3427,9 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxReverb/libs</string>
+						<string>../../../addons/ofxReverb/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_DEBUG)</string>
@@ -3258,6 +3481,9 @@ fi
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
+						<string>src</string>
+						<string>../../../addons/ofxReverb/libs</string>
+						<string>../../../addons/ofxReverb/src</string>
 					</array>
 					<key>ICON</key>
 					<string>$(ICON_NAME_RELEASE)</string>

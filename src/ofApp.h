@@ -21,9 +21,10 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        ofImage img;
+        ofImage nightView;
+        ofImage daytimeView;
         ofEasyCam cam;
         ofSpherePrimitive sphere;
-        ofBoxPrimitive box;
-        ofSpherePrimitive sphere2;
+        ofBoxPrimitive boxObject;
+        ofSpherePrimitive sphereObject;
 };

@@ -3,12 +3,15 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    string filename = "PHOTOSPHERE.jpg";
-    img.load(filename);
+    daytimeView.load("MARUNOUCHI_DAYTIMEVIEW.PHOTOSPHERE.jpg");
+    nightView.load("MARUNOUCHI_NIGHTVIEW.PHOTOSPHERE.jpg");
     ofEnableNormalizedTexCoords();
     cam.setAutoDistance(false);
     cam.setPosition(0,0,0);
     cam.setDistance(1.0);
+    
+    // 背景色を白にする
+    ofBackground(255);
 }
 
 //--------------------------------------------------------------
@@ -19,17 +22,26 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     cam.begin();
-    img.bind();
+    // 昼
+    ofSetColor(255, 255);
+    daytimeView.bind();
     sphere.set(10, 32);
     sphere.draw();
-    img.unbind();
+    daytimeView.unbind();
+    // 夜
+    ofSetColor(255, 0);
+    nightView.bind();
+    sphere.set(10, 32);
+    sphere.draw();
+    nightView.unbind();
     // 360度画像空間内にオブジェクトを描画
-    box.set(1);
-    box.setPosition(5, 0, -3);
-    box.drawWireframe();
-    sphere2.set(3, 16);
-    sphere2.setPosition(-2, 1, -10);
-    sphere2.drawWireframe();
+    ofSetColor(255, 255);
+    boxObject.set(1);
+    boxObject.setPosition(5, -0.5, -7);
+    boxObject.drawWireframe();
+    sphereObject.set(3, 16);
+    sphereObject.setPosition(-2, 3, -10);
+    sphereObject.drawWireframe();
     cam.end();
 }
 

@@ -4,5 +4,3 @@ bin/sphericalReproductionDebug.app/
 /.vscode/
 *.DS_Store
 .venv/
-*.png
-*.jpg
