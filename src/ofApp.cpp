@@ -12,24 +12,36 @@ void ofApp::setup(){
     
     // 背景色を白にする
     ofBackground(255);
+    daytimeViewOpacity = 1.;
+    gotoNight = false;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    if (gotoNight) {
+        // 昼から夜に
+        if (daytimeViewOpacity > 0.) {
+            daytimeViewOpacity -= 0.01;
+        }
+    } else {
+        // 夜から昼に
+        if (daytimeViewOpacity < 1.) {
+            daytimeViewOpacity += 0.01;
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     cam.begin();
     // 昼
-    ofSetColor(255, 255);
+    ofSetColor(255, daytimeViewOpacity * 255);
     daytimeView.bind();
     sphere.set(10, 32);
     sphere.draw();
     daytimeView.unbind();
     // 夜
-    ofSetColor(255, 0);
+    ofSetColor(255, (1. - daytimeViewOpacity) * 255);
     nightView.bind();
     sphere.set(10, 32);
     sphere.draw();
@@ -47,7 +59,15 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    switch (key) {
+    case 'n':
+        if (gotoNight) {
+            gotoNight = false;
+        } else {
+            gotoNight = true;
+        }
+        break;
+    }
 }
 
 //--------------------------------------------------------------

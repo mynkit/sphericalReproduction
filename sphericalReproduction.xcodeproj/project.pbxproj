@@ -212,6 +212,147 @@
 				<key>sourceTree</key>
 				<string>SOURCE_ROOT</string>
 			</dict>
+			<key>A7460711EFAA29E29B900534</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxAudioFile.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxAudioFile/src/ofxAudioFile.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>3FE22A25DEBB96787DAEB9D9</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>3794A57D8EFC646921513FD9</string>
+					<string>A7460711EFAA29E29B900534</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>src</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>55169838B1C1CE8A3035E2D8</key>
+			<dict>
+				<key>fileRef</key>
+				<string>3794A57D8EFC646921513FD9</string>
+				<key>isa</key>
+				<string>PBXBuildFile</string>
+			</dict>
+			<key>3794A57D8EFC646921513FD9</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.cpp.cpp</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>ofxAudioFile.cpp</string>
+				<key>path</key>
+				<string>../../../addons/ofxAudioFile/src/ofxAudioFile.cpp</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>52FD122EF24A07CC48E76C1A</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>stb_vorbis.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxAudioFile/libs/stb_vorbis.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>14CE30EFC660375B0E3A33CB</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>dr_wav.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxAudioFile/libs/dr_wav.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>D58D44DBBD421ADE63291045</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>dr_mp3.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxAudioFile/libs/dr_mp3.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
+			<key>6D1C73FC524C750B5BF8D039</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>C3CCD2226B35155DE0F050F6</string>
+					<string>D58D44DBBD421ADE63291045</string>
+					<string>14CE30EFC660375B0E3A33CB</string>
+					<string>52FD122EF24A07CC48E76C1A</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>libs</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>D8D8E0F43C631167E024126A</key>
+			<dict>
+				<key>children</key>
+				<array>
+					<string>6D1C73FC524C750B5BF8D039</string>
+					<string>3FE22A25DEBB96787DAEB9D9</string>
+				</array>
+				<key>isa</key>
+				<string>PBXGroup</string>
+				<key>name</key>
+				<string>ofxAudioFile</string>
+				<key>sourceTree</key>
+				<string>&lt;group&gt;</string>
+			</dict>
+			<key>C3CCD2226B35155DE0F050F6</key>
+			<dict>
+				<key>explicitFileType</key>
+				<string>sourcecode.c.h</string>
+				<key>fileEncoding</key>
+				<string>4</string>
+				<key>isa</key>
+				<string>PBXFileReference</string>
+				<key>name</key>
+				<string>dr_flac.h</string>
+				<key>path</key>
+				<string>../../../addons/ofxAudioFile/libs/dr_flac.h</string>
+				<key>sourceTree</key>
+				<string>SOURCE_ROOT</string>
+			</dict>
 			<key>6948EE371B920CB800B5AC1A</key>
 			<dict>
 				<key>children</key>
@@ -383,6 +524,8 @@ fi
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
 						<string>src</string>
+						<string>../../../addons/ofxAudioFile/libs</string>
+						<string>../../../addons/ofxAudioFile/src</string>
 						<string>../../../addons/ofxReverb/libs</string>
 						<string>../../../addons/ofxReverb/src</string>
 					</array>
@@ -428,6 +571,8 @@ fi
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
 						<string>src</string>
+						<string>../../../addons/ofxAudioFile/libs</string>
+						<string>../../../addons/ofxAudioFile/src</string>
 						<string>../../../addons/ofxReverb/libs</string>
 						<string>../../../addons/ofxReverb/src</string>
 					</array>
@@ -465,6 +610,7 @@ fi
 			<dict>
 				<key>children</key>
 				<array>
+					<string>D8D8E0F43C631167E024126A</string>
 					<string>F7AC7E9D8CD8005D7ABF1B5A</string>
 				</array>
 				<key>isa</key>
@@ -3232,6 +3378,8 @@ fi
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
 						<string>src</string>
+						<string>../../../addons/ofxAudioFile/libs</string>
+						<string>../../../addons/ofxAudioFile/src</string>
 						<string>../../../addons/ofxReverb/libs</string>
 						<string>../../../addons/ofxReverb/src</string>
 					</array>
@@ -3297,6 +3445,8 @@ fi
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
 						<string>src</string>
+						<string>../../../addons/ofxAudioFile/libs</string>
+						<string>../../../addons/ofxAudioFile/src</string>
 						<string>../../../addons/ofxReverb/libs</string>
 						<string>../../../addons/ofxReverb/src</string>
 					</array>
@@ -3325,6 +3475,7 @@ fi
 				<array>
 					<string>E4B69E200A3A1BDC003C02F2</string>
 					<string>E4B69E210A3A1BDC003C02F2</string>
+					<string>55169838B1C1CE8A3035E2D8</string>
 					<string>961C938A9DE29978E6071159</string>
 					<string>43FFE5A7FCAB58406F31511A</string>
 					<string>4D818F2B33CCAE20B3ACEBCD</string>
@@ -3428,6 +3579,8 @@ fi
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
 						<string>src</string>
+						<string>../../../addons/ofxAudioFile/libs</string>
+						<string>../../../addons/ofxAudioFile/src</string>
 						<string>../../../addons/ofxReverb/libs</string>
 						<string>../../../addons/ofxReverb/src</string>
 					</array>
@@ -3482,6 +3635,8 @@ fi
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
 						<string>src</string>
+						<string>../../../addons/ofxAudioFile/libs</string>
+						<string>../../../addons/ofxAudioFile/src</string>
 						<string>../../../addons/ofxReverb/libs</string>
 						<string>../../../addons/ofxReverb/src</string>
 					</array>

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxReverb.h"
+#include "ofxAudioFile.h"
 
 class ofApp : public ofBaseApp{
 
@@ -21,10 +23,17 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        ofImage nightView;
         ofImage daytimeView;
+        ofImage nightView;
+        float daytimeViewOpacity;
+        bool gotoNight;
         ofEasyCam cam;
         ofSpherePrimitive sphere;
         ofBoxPrimitive boxObject;
         ofSpherePrimitive sphereObject;
+    
+        // reverb
+        ofxReverb addOnReverb;
+        // Play Wavfile
+        ofxAudioFile audiofile;
 };
