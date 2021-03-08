@@ -51,11 +51,15 @@ void ofApp::setup(){
     playhead = 0;
     step = audiofile.samplerate() / sampleRate;
     // reverb setting
+    wet = 0.;
     addOnReverb.setroomsize(0.9f); // 大きくしていくと反響時間が長くなる
     addOnReverb.setdamp(0.5f); // 大きくしていくと高周波が消えて低周波が増える
     addOnReverb.setwidth(0.8f); //0~1。よくわかんないけど左右にいれるリバーブの感じが変わるらしい。0.5だと多分変わらない
-    addOnReverb.setwet(0.2f); // リバーブ部分の割合
-    addOnReverb.setdry(1.0f - 0.2f); // 原音部分の割合
+//    addOnReverb.setwet(0.2f); // リバーブ部分の割合
+//    addOnReverb.setdry(1.0f - 0.2f); // 原音部分の割合
+    addOnReverb.setwet(wet);
+    addOnReverb.setdry(0.);
+    
 }
 
 //--------------------------------------------------------------
@@ -76,9 +80,16 @@ void ofApp::update(){
         if (viewOpacity < 1.) {
             viewOpacity += 0.01;
         }
+        if (wet < 0.2) {
+            wet += 0.002;
+        }
     } else {
+        // 景色を非表示にする
         if (viewOpacity > 0.) {
             viewOpacity -= 0.01;
+        }
+        if (wet > 0.) {
+            wet -= 0.002;
         }
     }
 }
@@ -152,7 +163,11 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         float currentSampleR = currentSample;
         
         addOnReverb.setroomsize(0.9 * viewOpacity);
+        addOnReverb.setdamp(0.6 * daytimeViewOpacity);
+        addOnReverb.setwet(wet);
         addOnReverb.processreplace(&currentSampleL, &currentSampleR, &currentSampleL, &currentSampleR, 1, 1);
+        currentSampleL += (1. - wet) * currentSample;
+        currentSampleR += (1. - wet) * currentSample;
         currentSample = (currentSampleL + currentSampleR) / 2.;
         
         buffer[i*channels+0] = currentSampleL;

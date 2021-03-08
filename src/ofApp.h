@@ -52,4 +52,6 @@ class ofApp : public ofBaseApp{
         ofxAudioFile audiofile;
         float playhead;
         float step;
+        float wet;
+    
 };
