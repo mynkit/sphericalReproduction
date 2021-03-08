@@ -10,6 +10,18 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void exit();
+    
+        // audio setting
+        void audioIn(ofSoundBuffer &buffer);
+        void audioOut(ofSoundBuffer &buffer);
+        ofSoundStream sound_stream;
+        int fps;
+        int bpm;
+        float speedOfSound;
+        int bufferSize;
+        int sampleRate;
+        vector<float> inputBuffer;
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -26,7 +38,9 @@ class ofApp : public ofBaseApp{
         ofImage daytimeView;
         ofImage nightView;
         float daytimeViewOpacity;
+        float viewOpacity;
         bool gotoNight;
+        bool displayView;
         ofEasyCam cam;
         ofSpherePrimitive sphere;
         ofBoxPrimitive boxObject;
@@ -36,4 +50,6 @@ class ofApp : public ofBaseApp{
         ofxReverb addOnReverb;
         // Play Wavfile
         ofxAudioFile audiofile;
+        float playhead;
+        float step;
 };
