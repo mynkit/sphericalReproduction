@@ -165,7 +165,7 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         float currentSampleL = currentSample;
         float currentSampleR = currentSample;
         
-        addOnReverb.setroomsize(0.8 * viewOpacity - 0.1 * (daytimeViewOpacity));
+        addOnReverb.setroomsize(0.8 * viewOpacity - 0.2 * (daytimeViewOpacity));
         addOnReverb.setwet(wet);
         addOnReverb.setdamp(0.5 + 0.5 * daytimeViewOpacity);
         addOnReverb.processreplace(&currentSampleL, &currentSampleR, &currentSampleL, &currentSampleR, 1, 1);
@@ -259,5 +259,5 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void ofApp::exit(){
     ofSoundStreamClose();
-//    myWavWriter->wave_write("recording.wav");
+    myWavWriter->wave_write("recording.wav");
 }
