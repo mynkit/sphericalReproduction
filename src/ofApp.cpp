@@ -174,10 +174,10 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         currentSample = (currentSampleL + currentSampleR) / 2.;
         
         
-        float shortDelaySample = myShortDelay->effect(currentSample);
-        myShortDelay->feed(currentSample);
-        currentSampleL += viewOpacity * daytimeViewOpacity * shortDelaySample;
-        currentSampleR -= viewOpacity * daytimeViewOpacity * shortDelaySample;
+//        float shortDelaySample = myShortDelay->effect(currentSample);
+//        myShortDelay->feed(currentSample);
+//        currentSampleL += viewOpacity * daytimeViewOpacity * shortDelaySample;
+//        currentSampleR -= viewOpacity * daytimeViewOpacity * shortDelaySample;
         buffer[i*channels+0] = currentSampleL;
         buffer[i*channels+1] = currentSampleR;
         curVol += currentSampleL * currentSampleR;
