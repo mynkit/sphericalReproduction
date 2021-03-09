@@ -55,10 +55,13 @@ void ofApp::setup(){
     addOnReverb.setroomsize(0.9f); // 大きくしていくと反響時間が長くなる
     addOnReverb.setdamp(0.5f); // 大きくしていくと高周波が消えて低周波が増える
     addOnReverb.setwidth(0.8f); //0~1。よくわかんないけど左右にいれるリバーブの感じが変わるらしい。0.5だと多分変わらない
-//    addOnReverb.setwet(0.2f); // リバーブ部分の割合
-//    addOnReverb.setdry(1.0f - 0.2f); // 原音部分の割合
-    addOnReverb.setwet(wet);
-    addOnReverb.setdry(0.);
+    addOnReverb.setwet(wet); // リバーブ部分の割合
+    addOnReverb.setdry(0.); // 原音部分の割合(原音は出力時に足すのでオフにしておく)
+    // recording
+    myWavWriter = new wavWriter(sampleRate, 16, 2);
+    myWavWriter->setRecordingOn();
+    // delay
+    myShortDelay = new delay(100, sampleRate, 80, 0.3);
     
 }
 
@@ -162,17 +165,24 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         float currentSampleL = currentSample;
         float currentSampleR = currentSample;
         
-        addOnReverb.setroomsize(0.9 * viewOpacity);
-        addOnReverb.setdamp(0.6 * daytimeViewOpacity);
+        addOnReverb.setroomsize(0.8 * viewOpacity - 0.1 * (daytimeViewOpacity));
         addOnReverb.setwet(wet);
+        addOnReverb.setdamp(0.5 + 0.5 * daytimeViewOpacity);
         addOnReverb.processreplace(&currentSampleL, &currentSampleR, &currentSampleL, &currentSampleR, 1, 1);
         currentSampleL += (1. - wet) * currentSample;
         currentSampleR += (1. - wet) * currentSample;
         currentSample = (currentSampleL + currentSampleR) / 2.;
         
+        
+        float shortDelaySample = myShortDelay->effect(currentSample);
+        myShortDelay->feed(currentSample);
+        currentSampleL += viewOpacity * daytimeViewOpacity * shortDelaySample;
+        currentSampleR -= viewOpacity * daytimeViewOpacity * shortDelaySample;
         buffer[i*channels+0] = currentSampleL;
         buffer[i*channels+1] = currentSampleR;
         curVol += currentSampleL * currentSampleR;
+        myWavWriter->recording(currentSampleL); // L
+        myWavWriter->recording(currentSampleR); // R
     }
 }
 

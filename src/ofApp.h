@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "ofxReverb.h"
 #include "ofxAudioFile.h"
+#include "wavWriter.hpp"
+#include "delay.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -53,5 +55,8 @@ class ofApp : public ofBaseApp{
         float playhead;
         float step;
         float wet;
-    
+        // Recording
+        wavWriter* myWavWriter;
+        // delay
+        delay* myShortDelay;
 };
