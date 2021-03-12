@@ -1,2 +1,4 @@
 ofxAudioFile
+ofxCsv
+ofxJSON
 ofxReverb

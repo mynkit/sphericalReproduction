@@ -6,6 +6,9 @@
 #include "wavWriter.hpp"
 #include "delay.hpp"
 #include "peakingFilter.hpp"
+#include "imageSourceModel.hpp"
+#include "room.hpp"
+#include "roomReverb.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -50,7 +53,8 @@ class ofApp : public ofBaseApp{
         ofSpherePrimitive sphereObject;
     
         // reverb
-        ofxReverb addOnReverb;
+        ofxReverb schroederReverb;
+        roomReverb* myRoomReverb;
         // Play Wavfile
         ofxAudioFile audiofile;
         float playhead;
@@ -63,4 +67,9 @@ class ofApp : public ofBaseApp{
         // peaking Filter
         peakingFilter* myPeakingFilterL;
         peakingFilter* myPeakingFilterR;
+        // room setting
+        imageSourceModel* myImageSourceModel;
+        Room* myRoom;
+    private:
+        ofxJSONElement json;
 };

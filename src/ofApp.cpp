@@ -39,7 +39,7 @@ void ofApp::setup(){
     settings.bufferSize = bufferSize;
     sound_stream.setup(settings);
     // audiofile setting
-    string filepath = ofToDataPath("presto2.wav");
+    string filepath = ofToDataPath("presto1.wav");
 //    string filepath = ofToDataPath("owarinokisetsuguitar.wav");
     if( ofFile::doesFileExist( filepath ) ){
         audiofile.load( filepath );
@@ -56,16 +56,21 @@ void ofApp::setup(){
     myPeakingFilterR = new peakingFilter(sampleRate, 3200, 0.7, 0.);
     // reverb setting
     wet = 0.;
-    addOnReverb.setroomsize(0.9f); // 大きくしていくと反響時間が長くなる
-    addOnReverb.setdamp(0.5f); // 大きくしていくと高周波が消えて低周波が増える
-    addOnReverb.setwidth(0.8f); //0~1。よくわかんないけど左右にいれるリバーブの感じが変わるらしい。0.5だと多分変わらない
-    addOnReverb.setwet(wet); // リバーブ部分の割合
-    addOnReverb.setdry(0.); // 原音部分の割合(原音は出力時に足すのでオフにしておく)
+    schroederReverb.setroomsize(0.9f); // 大きくしていくと反響時間が長くなる
+    schroederReverb.setdamp(0.5f); // 大きくしていくと高周波が消えて低周波が増える
+    schroederReverb.setwidth(0.8f); //0~1。よくわかんないけど左右にいれるリバーブの感じが変わるらしい。0.5だと多分変わらない
+    schroederReverb.setwet(wet); // リバーブ部分の割合
+    schroederReverb.setdry(0.); // 原音部分の割合(原音は出力時に足すのでオフにしておく)
     // recording
     myWavWriter = new wavWriter(sampleRate, 16, 2);
     myWavWriter->setRecordingOn();
     // delay
     myShortDelay = new delay(100, sampleRate, 80, 0.3);
+    // room setting
+    myImageSourceModel = new imageSourceModel("image_source_model.csv");
+    myRoom = new Room("room_setting.json", fps, speedOfSound);
+    // room reverb setting
+    myRoomReverb = new roomReverb(1000, sampleRate);
 }
 
 //--------------------------------------------------------------
@@ -108,23 +113,17 @@ void ofApp::draw(){
     // 昼
     ofSetColor(255, daytimeViewOpacity * 255 * viewOpacity);
     daytimeView.bind();
-    sphere.set(10, 32);
+    sphere.set(100, 32);
     sphere.draw();
     daytimeView.unbind();
     // 夜
     ofSetColor(255, (1. - daytimeViewOpacity) * 255 * viewOpacity);
     nightView.bind();
-    sphere.set(10, 32);
+    sphere.set(100, 32);
     sphere.draw();
     nightView.unbind();
-    // 360度画像空間内にオブジェクトを描画
-    ofSetColor(255, 255);
-    boxObject.set(1);
-    boxObject.setPosition(5, -0.5, -7);
-    boxObject.drawWireframe();
-    sphereObject.set(3, 16);
-    sphereObject.setPosition(-2, 3, -10);
-    sphereObject.drawWireframe();
+    // Roomの描画
+    myRoom->drawRoom();
     cam.end();
 }
 
@@ -168,16 +167,18 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         float currentSampleL = currentSample;
         float currentSampleR = currentSample;
         
-        addOnReverb.setroomsize(0.8);
-        addOnReverb.setwet(wet);
-        addOnReverb.setdamp(0.3 + 0.7 * daytimeViewOpacity);
-        addOnReverb.processreplace(&currentSampleL, &currentSampleR, &currentSampleL, &currentSampleR, 1, 1);
+        schroederReverb.setroomsize(0.8);
+        schroederReverb.setwet(wet);
+        schroederReverb.setdamp(0.3 + 0.7 * daytimeViewOpacity);
+        schroederReverb.processreplace(&currentSampleL, &currentSampleR, &currentSampleL, &currentSampleR, 1, 1);
         float gain = 2. * viewOpacity * (1. - daytimeViewOpacity);
         if (myPeakingFilterR && myPeakingFilterL) {
             myPeakingFilterL->setGain(gain);
             myPeakingFilterR->setGain(gain);
             currentSampleL = myPeakingFilterL->effect(currentSampleL) * ( 1. - 0.2 * (1. - daytimeViewOpacity)*viewOpacity );
             currentSampleR = myPeakingFilterR->effect(currentSampleR) * ( 1. - 0.2 * (1. - daytimeViewOpacity)*viewOpacity );
+        } else {
+            cout << "warning: peakingFilter does not work." << endl;
         }
         currentSampleL += (1. - wet) * currentSample;
         currentSampleR += (1. - wet) * currentSample;
