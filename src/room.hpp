@@ -22,7 +22,6 @@ class Room {
         Room(string roomSettingPath, int fps, float speedOfSound);
         ~Room();
         void drawRoom(float opacity);
-        void cameraSetup();
         void setInputVolume(float volume);
         void setOutputVolume(float volume);
     private:
@@ -44,5 +43,7 @@ class Room {
         float xyavg; // xy方向(ななめ)から見たときの原点からの距離
         int zdis;
         int ydis;
+        // 照明
+        ofLight light;
 };
 

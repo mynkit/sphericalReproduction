@@ -190,7 +190,7 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
     for(int i = 0; i < frames; i++){
         const int channels = buffer.getNumChannels();
         float currentSample = inputBuffer[i];
-        if (roomReverbWet>0 && myRoomReverb) {
+        if (roomReverbWet>0.01 && myRoomReverb) {
             currentSample = myRoomReverb->effect(currentSample, myImageSourceModel->distances, myImageSourceModel->orders, speedOfSound, 0.3, roomReverbWet);
         }
         float currentSampleL = currentSample;
