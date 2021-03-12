@@ -14,6 +14,8 @@ void ofApp::setup(){
     daytimeView.load("MARUNOUCHI_DAYTIMEVIEW.PHOTOSPHERE.jpg");
     nightView.load("MARUNOUCHI_NIGHTVIEW.PHOTOSPHERE.jpg");
     ofEnableNormalizedTexCoords();
+    ofEnableAlphaBlending(); // 透明化を有効にする
+//    ofEnableSmoothing();
     cam.setAutoDistance(false);
     cam.setPosition(0,0,0);
     cam.setDistance(1.0);
@@ -22,6 +24,7 @@ void ofApp::setup(){
     daytimeViewOpacity = 1.;
     gotoNight = false;
     displayView = false;
+    displayRoom = true;
     
     // audio setting
     fps = FPS;
@@ -39,7 +42,7 @@ void ofApp::setup(){
     settings.bufferSize = bufferSize;
     sound_stream.setup(settings);
     // audiofile setting
-    string filepath = ofToDataPath("presto1.wav");
+    string filepath = ofToDataPath("prestobind.wav");
 //    string filepath = ofToDataPath("owarinokisetsuguitar.wav");
     if( ofFile::doesFileExist( filepath ) ){
         audiofile.load( filepath );
@@ -55,11 +58,11 @@ void ofApp::setup(){
     myPeakingFilterL = new peakingFilter(sampleRate, 3200, 0.7, 0.);
     myPeakingFilterR = new peakingFilter(sampleRate, 3200, 0.7, 0.);
     // reverb setting
-    wet = 0.;
+    schroederReverbWet = 0.;
     schroederReverb.setroomsize(0.9f); // 大きくしていくと反響時間が長くなる
     schroederReverb.setdamp(0.5f); // 大きくしていくと高周波が消えて低周波が増える
     schroederReverb.setwidth(0.8f); //0~1。よくわかんないけど左右にいれるリバーブの感じが変わるらしい。0.5だと多分変わらない
-    schroederReverb.setwet(wet); // リバーブ部分の割合
+    schroederReverb.setwet(schroederReverbWet); // リバーブ部分の割合
     schroederReverb.setdry(0.); // 原音部分の割合(原音は出力時に足すのでオフにしておく)
     // recording
     myWavWriter = new wavWriter(sampleRate, 16, 2);
@@ -70,7 +73,8 @@ void ofApp::setup(){
     myImageSourceModel = new imageSourceModel("image_source_model.csv");
     myRoom = new Room("room_setting.json", fps, speedOfSound);
     // room reverb setting
-    myRoomReverb = new roomReverb(1000, sampleRate);
+    myRoomReverb = new roomReverb(10000, sampleRate);
+    roomReverbWet = 0.;
 }
 
 //--------------------------------------------------------------
@@ -91,16 +95,33 @@ void ofApp::update(){
         if (viewOpacity < 1.) {
             viewOpacity += 0.01;
         }
-        if (wet < 0.2) {
-            wet += 0.002;
+        // schroederReverbをかける
+        if (schroederReverbWet < 0.2) {
+            schroederReverbWet += 0.002;
         }
+        // 部屋を非表示にする
+        displayRoom = false;
     } else {
         // 景色を非表示にする
         if (viewOpacity > 0.) {
             viewOpacity -= 0.01;
         }
-        if (wet > 0.) {
-            wet -= 0.002;
+        // schroederReverbをとめる
+        if (schroederReverbWet > 0.) {
+            schroederReverbWet -= 0.002;
+        }
+    }
+    if (displayRoom) {
+        // 部屋を表示する
+        if (roomReverbWet < 1.) {
+            roomReverbWet += 0.01;
+        }
+        // 景色を非表示にする
+        displayView = false;
+    } else {
+        // 部屋を非表示にする
+        if (roomReverbWet > 0.) {
+            roomReverbWet -= 0.01;
         }
     }
 }
@@ -123,7 +144,7 @@ void ofApp::draw(){
     sphere.draw();
     nightView.unbind();
     // Roomの描画
-    myRoom->drawRoom();
+    myRoom->drawRoom(roomReverbWet);
     cam.end();
 }
 
@@ -155,33 +176,36 @@ void ofApp::audioIn(ofSoundBuffer &buffer){
             playhead = 0; // ループ
         }
     }
+    myRoom->setInputVolume(sqrt(curVol) * 1.);
 }
 
 //--------------------------------------------------------------
 void ofApp::audioOut(ofSoundBuffer &buffer){
     const int frames = buffer.getNumFrames();
     float curVol = 0.0;
+    schroederReverb.setroomsize(0.8);
+    schroederReverb.setwet(schroederReverbWet);
+    schroederReverb.setdamp(daytimeViewOpacity);
+    float peakingFilterGain = 2. * viewOpacity * (1. - daytimeViewOpacity);
     for(int i = 0; i < frames; i++){
         const int channels = buffer.getNumChannels();
         float currentSample = inputBuffer[i];
+        if (roomReverbWet>0 && myRoomReverb) {
+            currentSample = myRoomReverb->effect(currentSample, myImageSourceModel->distances, myImageSourceModel->orders, speedOfSound, 0.3, roomReverbWet);
+        }
         float currentSampleL = currentSample;
         float currentSampleR = currentSample;
-        
-        schroederReverb.setroomsize(0.8);
-        schroederReverb.setwet(wet);
-        schroederReverb.setdamp(0.3 + 0.7 * daytimeViewOpacity);
         schroederReverb.processreplace(&currentSampleL, &currentSampleR, &currentSampleL, &currentSampleR, 1, 1);
-        float gain = 2. * viewOpacity * (1. - daytimeViewOpacity);
         if (myPeakingFilterR && myPeakingFilterL) {
-            myPeakingFilterL->setGain(gain);
-            myPeakingFilterR->setGain(gain);
+            myPeakingFilterL->setGain(peakingFilterGain);
+            myPeakingFilterR->setGain(peakingFilterGain);
             currentSampleL = myPeakingFilterL->effect(currentSampleL) * ( 1. - 0.2 * (1. - daytimeViewOpacity)*viewOpacity );
             currentSampleR = myPeakingFilterR->effect(currentSampleR) * ( 1. - 0.2 * (1. - daytimeViewOpacity)*viewOpacity );
         } else {
-            cout << "warning: peakingFilter does not work." << endl;
+            //cout << "warning: peakingFilter does not work." << endl;
         }
-        currentSampleL += (1. - wet) * currentSample;
-        currentSampleR += (1. - wet) * currentSample;
+        currentSampleL += (1. - schroederReverbWet) * currentSample;
+        currentSampleR += (1. - schroederReverbWet) * currentSample;
         currentSample = (currentSampleL + currentSampleR) / 2.;
         buffer[i*channels+0] = currentSampleL;
         buffer[i*channels+1] = currentSampleR;
@@ -189,6 +213,7 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         myWavWriter->recording(currentSampleL); // L
         myWavWriter->recording(currentSampleR); // R
     }
+    myRoom->setOutputVolume(sqrt(curVol) * 1.);
 }
 
 //--------------------------------------------------------------
@@ -201,11 +226,18 @@ void ofApp::keyPressed(int key){
             gotoNight = true;
         }
         break;
-    case 'r':
+    case 's':
         if (displayView) {
             displayView = false;
         } else {
             displayView = true;
+        }
+        break;
+    case 'r':
+        if (displayRoom) {
+            displayRoom = false;
+        } else {
+            displayRoom = true;
         }
         break;
     }
@@ -264,5 +296,5 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void ofApp::exit(){
     ofSoundStreamClose();
-    myWavWriter->wave_write("recording.wav");
+//    myWavWriter->wave_write("recording.wav");
 }

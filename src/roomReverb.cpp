@@ -28,15 +28,19 @@ void roomReverb::feed(float sample) {
     if(originalSamplePoint >= size){ originalSamplePoint = 0;}
 }
 
-float roomReverb::effect(float sample, vector<float> distances, vector<int> orders, float speedOfSound, float soundAbsorptionCoefficient) {
+float roomReverb::effect(float sample, vector<float> distances, vector<int> orders, float speedOfSound, float soundAbsorptionCoefficient, float wet) {
     // inputの音をそのまま保持用バッファにいれる
     feed(sample);
     int delayTime;
     float decay;
     int point;
     int phase;
-    float wet = 0;
-
+    float wetSample = 0;
+    if (wet > 1) {
+        wet = 1.;
+    } else if (wet < 0) {
+        wet = 0.;
+    }
     if(originalSamplePoint >= size){originalSamplePoint = 0;}
     for(int i = 0; i < distances.size(); i++) {
         delayTime = 1000. * distances.at(i) / speedOfSound; // ms単位にする
@@ -48,8 +52,8 @@ float roomReverb::effect(float sample, vector<float> distances, vector<int> orde
         if(point >= size){phase = -1;}
         point = originalSamplePoint + size - (delayTime*0.001*sampleRate) - 1;
         if(point >= size){point -= size;}
-        wet += buffer[point] * phase * decay;
+        wetSample += buffer[point] * phase * decay;
     }
-    return 0.9 * (sample + wet);
+    return (1. - 0.2 * wet) * (sample + wetSample * wet);
 }
 

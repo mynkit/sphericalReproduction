@@ -23,5 +23,5 @@ class roomReverb {
         ~roomReverb();
 
         void feed(float sample);
-        float effect(float sample, vector<float> distances, vector<int> orders, float speedOfSound, float soundAbsorptionCoefficient);
+        float effect(float sample, vector<float> distances, vector<int> orders, float speedOfSound, float soundAbsorptionCoefficient, float wet);
 };

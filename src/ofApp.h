@@ -47,6 +47,7 @@ class ofApp : public ofBaseApp{
         float viewOpacity;
         bool gotoNight;
         bool displayView;
+        bool displayRoom;
         ofEasyCam cam;
         ofSpherePrimitive sphere;
         ofBoxPrimitive boxObject;
@@ -59,7 +60,8 @@ class ofApp : public ofBaseApp{
         ofxAudioFile audiofile;
         float playhead;
         float step;
-        float wet;
+        float schroederReverbWet;
+        float roomReverbWet;
         // Recording
         wavWriter* myWavWriter;
         // delay

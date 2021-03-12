@@ -21,7 +21,7 @@ class Room {
         float outputVolume;
         Room(string roomSettingPath, int fps, float speedOfSound);
         ~Room();
-        void drawRoom();
+        void drawRoom(float opacity);
         void cameraSetup();
         void setInputVolume(float volume);
         void setOutputVolume(float volume);
@@ -31,6 +31,7 @@ class Room {
         ofBoxPrimitive sourceBox;
         ofEasyCam cam;
         ofPolyline polyline;
+        ofMesh mesh;
         float microphoneWidth;
         float sourceWidth;
         float xwidth;
