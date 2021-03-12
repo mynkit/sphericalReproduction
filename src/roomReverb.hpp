@@ -12,7 +12,7 @@
 class roomReverb {
     public:
         int maxHoldTime;
-        float* buffer;
+        vector<float> buffer;
         int size;
         int sampleRate;
         int originalSamplePoint;

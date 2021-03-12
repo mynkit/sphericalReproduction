@@ -15,7 +15,7 @@ roomReverb::roomReverb(float _maxHoldTime, int _sampleRate) {
     //! 保持されている音のサンプルサイズ
     size = maxHoldTime * 0.001 * _sampleRate;
     //! バッファ
-    buffer = new float[size];
+    buffer.resize(size);
     //! 元のsampleが保持用bufferの今どの位置か
     originalSamplePoint = 0;
 }

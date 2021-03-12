@@ -91,12 +91,14 @@ void Room::drawRoom(float opacity) {
     ofSetColor(255,255, 255, 255 * opacity);
     sourceBox.drawWireframe();
     // マイク, 音源の中の色
-    int micAlpha = outputVolume * 10;
-    ofSetColor(250, 125, 127, micAlpha * opacity); // 強い赤色
-    microphoneSphere.draw();
-    int sourceAlpha = inputVolume * 10;
-    ofSetColor(250, 125, 127, sourceAlpha * opacity); // 強い赤色
-    sourceBox.draw();
+    if (opacity > 0.01) {
+        int micAlpha = outputVolume * 10;
+        ofSetColor(250, 125, 127, micAlpha * opacity); // 強い赤色
+        microphoneSphere.draw();
+        int sourceAlpha = inputVolume * 10;
+        ofSetColor(250, 125, 127, sourceAlpha * opacity); // 強い赤色
+        sourceBox.draw();
+    }
 }
 
 void Room::setInputVolume(float volume) {
