@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numpy = "*"
+scipy = "*"
+pyroomacoustics = "*"
+matplotlib = "*"
+
+[dev-packages]
+autopep8 = "*"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+start = "python make_image_source_model.py"
+preview = "python make_image_source_model.py -p"
+format = "autopep8 -ivr ."
