@@ -39,7 +39,8 @@ void ofApp::setup(){
     settings.bufferSize = bufferSize;
     sound_stream.setup(settings);
     // audiofile setting
-    string filepath = ofToDataPath("owarinokisetsuguitar.wav");
+    string filepath = ofToDataPath("presto2.wav");
+//    string filepath = ofToDataPath("owarinokisetsuguitar.wav");
     if( ofFile::doesFileExist( filepath ) ){
         audiofile.load( filepath );
         if (!audiofile.loaded()){
@@ -50,6 +51,9 @@ void ofApp::setup(){
     }
     playhead = 0;
     step = audiofile.samplerate() / sampleRate;
+    // peaking Filter
+    myPeakingFilterL = new peakingFilter(sampleRate, 3200, 0.7, 0.);
+    myPeakingFilterR = new peakingFilter(sampleRate, 3200, 0.7, 0.);
     // reverb setting
     wet = 0.;
     addOnReverb.setroomsize(0.9f); // 大きくしていくと反響時間が長くなる
@@ -62,7 +66,6 @@ void ofApp::setup(){
     myWavWriter->setRecordingOn();
     // delay
     myShortDelay = new delay(100, sampleRate, 80, 0.3);
-    
 }
 
 //--------------------------------------------------------------
@@ -101,7 +104,7 @@ void ofApp::update(){
 void ofApp::draw(){
     cam.begin();
     // 背景色を白にする
-    ofBackground(150 + (255 - 150) * viewOpacity);
+    ofBackground(189 + (255 - 189) * viewOpacity, 205 + (255 - 205) * viewOpacity, 238 + (255 - 238) * viewOpacity);
     // 昼
     ofSetColor(255, daytimeViewOpacity * 255 * viewOpacity);
     daytimeView.bind();
@@ -165,19 +168,20 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         float currentSampleL = currentSample;
         float currentSampleR = currentSample;
         
-        addOnReverb.setroomsize(0.8 * viewOpacity - 0.2 * (daytimeViewOpacity));
+        addOnReverb.setroomsize(0.8);
         addOnReverb.setwet(wet);
-        addOnReverb.setdamp(0.5 + 0.5 * daytimeViewOpacity);
+        addOnReverb.setdamp(0.3 + 0.7 * daytimeViewOpacity);
         addOnReverb.processreplace(&currentSampleL, &currentSampleR, &currentSampleL, &currentSampleR, 1, 1);
+        float gain = 2. * viewOpacity * (1. - daytimeViewOpacity);
+        if (myPeakingFilterR && myPeakingFilterL) {
+            myPeakingFilterL->setGain(gain);
+            myPeakingFilterR->setGain(gain);
+            currentSampleL = myPeakingFilterL->effect(currentSampleL) * ( 1. - 0.2 * (1. - daytimeViewOpacity)*viewOpacity );
+            currentSampleR = myPeakingFilterR->effect(currentSampleR) * ( 1. - 0.2 * (1. - daytimeViewOpacity)*viewOpacity );
+        }
         currentSampleL += (1. - wet) * currentSample;
         currentSampleR += (1. - wet) * currentSample;
         currentSample = (currentSampleL + currentSampleR) / 2.;
-        
-        
-//        float shortDelaySample = myShortDelay->effect(currentSample);
-//        myShortDelay->feed(currentSample);
-//        currentSampleL += viewOpacity * daytimeViewOpacity * shortDelaySample;
-//        currentSampleR -= viewOpacity * daytimeViewOpacity * shortDelaySample;
         buffer[i*channels+0] = currentSampleL;
         buffer[i*channels+1] = currentSampleR;
         curVol += currentSampleL * currentSampleR;

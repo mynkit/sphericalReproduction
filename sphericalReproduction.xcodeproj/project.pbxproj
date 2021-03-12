@@ -12,6 +12,7 @@
 		55169838B1C1CE8A3035E2D8 /* ofxAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3794A57D8EFC646921513FD9 /* ofxAudioFile.cpp */; };
 		6080D4F025F5E8C900B29AF6 /* wavWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6080D4EE25F5E8C900B29AF6 /* wavWriter.cpp */; };
 		6080D4F925F657B700B29AF6 /* delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6080D4F725F657B700B29AF6 /* delay.cpp */; };
+		6080D4FC25F83F8100B29AF6 /* peakingFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6080D4FA25F83F8100B29AF6 /* peakingFilter.cpp */; };
 		961C938A9DE29978E6071159 /* allpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1283FB785281B120BEB53515 /* allpass.cpp */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
@@ -40,6 +41,8 @@
 		6080D4EF25F5E8C900B29AF6 /* wavWriter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = wavWriter.hpp; sourceTree = "<group>"; };
 		6080D4F725F657B700B29AF6 /* delay.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = delay.cpp; sourceTree = "<group>"; };
 		6080D4F825F657B700B29AF6 /* delay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = delay.hpp; sourceTree = "<group>"; };
+		6080D4FA25F83F8100B29AF6 /* peakingFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = peakingFilter.cpp; sourceTree = "<group>"; };
+		6080D4FB25F83F8100B29AF6 /* peakingFilter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = peakingFilter.hpp; sourceTree = "<group>"; };
 		6AD72C435068D62F270812E4 /* comb.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = comb.cpp; path = ../../../addons/ofxReverb/libs/comb.cpp; sourceTree = SOURCE_ROOT; };
 		7292868FE2D901CC63F7F94A /* comb.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = comb.hpp; path = ../../../addons/ofxReverb/libs/comb.hpp; sourceTree = SOURCE_ROOT; };
 		8C36B274C8F70E7CDE525AC3 /* ofxReverb.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ofxReverb.h; path = ../../../addons/ofxReverb/src/ofxReverb.h; sourceTree = SOURCE_ROOT; };
@@ -616,6 +619,8 @@
 				6080D4EF25F5E8C900B29AF6 /* wavWriter.hpp */,
 				6080D4F725F657B700B29AF6 /* delay.cpp */,
 				6080D4F825F657B700B29AF6 /* delay.hpp */,
+				6080D4FA25F83F8100B29AF6 /* peakingFilter.cpp */,
+				6080D4FB25F83F8100B29AF6 /* peakingFilter.hpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -733,6 +738,7 @@
 				55169838B1C1CE8A3035E2D8 /* ofxAudioFile.cpp in Sources */,
 				961C938A9DE29978E6071159 /* allpass.cpp in Sources */,
 				43FFE5A7FCAB58406F31511A /* comb.cpp in Sources */,
+				6080D4FC25F83F8100B29AF6 /* peakingFilter.cpp in Sources */,
 				4D818F2B33CCAE20B3ACEBCD /* revmodel.cpp in Sources */,
 				6080D4F025F5E8C900B29AF6 /* wavWriter.cpp in Sources */,
 			);

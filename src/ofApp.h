@@ -5,6 +5,7 @@
 #include "ofxAudioFile.h"
 #include "wavWriter.hpp"
 #include "delay.hpp"
+#include "peakingFilter.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -59,4 +60,7 @@ class ofApp : public ofBaseApp{
         wavWriter* myWavWriter;
         // delay
         delay* myShortDelay;
+        // peaking Filter
+        peakingFilter* myPeakingFilterL;
+        peakingFilter* myPeakingFilterR;
 };

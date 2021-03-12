@@ -98,7 +98,7 @@ void wavWriter::wave_write(string filenameStr) {
 }
 
 void wavWriter::recording(float sample) {
-    if (recordingOn) {
+    if (this && recordingOn) {
         recordingBuffer.push_back(sample);
     }
 }
