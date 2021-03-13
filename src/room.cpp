@@ -60,20 +60,9 @@ Room::Room(string roomSettingPath, int fps, float speedOfSound) {
     microphoneSphere.setPosition(microphone[0], microphone[2] - ydis, microphone[1] - zdis);
     sourceBox.set(sourceWidth * 0.9);
     sourceBox.setPosition(source[0], source[2] - ydis, source[1] - zdis);
-    // 照明の有効化
-    // ライティングを有効に
-    light.enable();
-    light.setPointLight();
-    // 照明の位置
-    light.setPosition(0, -ydis + height / 2, -zdis);
-    // 鏡面反射光の色
-    light.setSpecularColor(ofFloatColor(1.0, 1.0, 1.0));
-    // 拡散反射光の色
-    light.setDiffuseColor(ofFloatColor(0.5, 0.5, 0.5));
-    // 環境反射光の色
-    light.setAmbientColor(ofFloatColor(0.2, 0.2, 0.2, 1.0));
     // 部屋の頂点をmeshに設定
     int floorColor = ofRandom(180, 230);
+    int ceilingColor = ofRandom(200, 250);
     for(int i = 0; i < corners.size(); i++) {
         int next = i + 1;
         if(next == corners.size()){next = 0;}
@@ -85,12 +74,6 @@ Room::Room(string roomSettingPath, int fps, float speedOfSound) {
         mesh.addVertex(ofVec3f(corners[next][0], -ydis, corners[next][1] - zdis));
         mesh.addVertex(ofVec3f(corners[i][0], -ydis, corners[i][1] - zdis));
         mesh.addVertex(ofVec3f(corners[next][0], height - ydis, corners[next][1] - zdis));
-        mesh.addColor(ofColor(wallColor));
-        mesh.addColor(ofColor(wallColor));
-        mesh.addColor(ofColor(wallColor));
-        mesh.addColor(ofColor(wallColor));
-        mesh.addColor(ofColor(wallColor));
-        mesh.addColor(ofColor(wallColor));
         // 天井と床
         mesh.addVertex(ofVec3f(corners[i][0], height - ydis, corners[i][1] - zdis));
         mesh.addVertex(ofVec3f(0, height - ydis, - zdis));
@@ -98,20 +81,10 @@ Room::Room(string roomSettingPath, int fps, float speedOfSound) {
         mesh.addVertex(ofVec3f(corners[i][0], - ydis, corners[i][1] - zdis));
         mesh.addVertex(ofVec3f(0, - ydis, - zdis));
         mesh.addVertex(ofVec3f(corners[next][0], - ydis, corners[next][1] - zdis));
-        mesh.addColor(ofColor(floorColor));
-        mesh.addColor(ofColor(floorColor));
-        mesh.addColor(ofColor(floorColor));
-        mesh.addColor(ofColor(floorColor));
-        mesh.addColor(ofColor(floorColor));
-        mesh.addColor(ofColor(floorColor));
     }
 }
 
 void Room::drawRoom(float opacity) {
-    // 部屋の枠を描画
-    ofSetColor(255, 255, 255, 50);
-//        ofSetLineWidth(2);
-    mesh.drawFaces();
     // マイク, 音源
     ofSetColor(255, 255, 255, 255);
     microphoneSphere.drawWireframe();
@@ -122,9 +95,22 @@ void Room::drawRoom(float opacity) {
         int micAlpha = outputVolume * 10;
         ofSetColor(250, 125, 127, micAlpha * opacity); // 強い赤色
         microphoneSphere.draw();
-        int sourceAlpha = inputVolume * 10;
-        ofSetColor(250, 125, 127, sourceAlpha * opacity); // 強い赤色
-        sourceBox.draw();
+    }
+    int sourceAlpha = inputVolume * 10;
+    ofSetColor(250, 125, 127, sourceAlpha); // 強い赤色
+    sourceBox.draw();
+    // 部屋の面を描画
+    ofSetColor(255, 255, 255, 100 - 60 * (1. - opacity));
+    mesh.draw();
+    // 部屋の枠を描画
+    ofSetColor(100, 100, 100, 255);
+    ofSetLineWidth(1);
+    for(int i = 0; i < corners.size(); i++) {
+        int next = i + 1;
+        if(next == corners.size()){next = 0;}
+        ofDrawLine(corners[i][0], height - ydis, corners[i][1] - zdis, corners[next][0], height - ydis, corners[next][1] - zdis);
+        ofDrawLine(corners[i][0], -ydis, corners[i][1] - zdis, corners[next][0], -ydis, corners[next][1] - zdis);
+        ofDrawLine(corners[i][0], -ydis, corners[i][1] - zdis, corners[i][0], height - ydis, corners[i][1] - zdis);
     }
 }
 

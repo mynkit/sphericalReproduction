@@ -75,6 +75,8 @@ void ofApp::setup(){
     // room reverb setting
     myRoomReverb = new roomReverb(10000, sampleRate);
     roomReverbWet = 0.;
+    // 深度テストの有効化
+    ofEnableDepthTest();
 }
 
 //--------------------------------------------------------------
@@ -116,8 +118,6 @@ void ofApp::update(){
         if (roomReverbWet < 1.) {
             roomReverbWet += 0.01;
         }
-        // 景色を非表示にする
-        displayView = false;
     } else {
         // 部屋を非表示にする
         if (roomReverbWet > 0.) {
@@ -134,7 +134,7 @@ void ofApp::draw(){
     // 昼
     ofSetColor(255, daytimeViewOpacity * 255 * viewOpacity);
     daytimeView.bind();
-    sphere.set(100, 32);
+    sphere.set(150, 32);
     sphere.draw();
     daytimeView.unbind();
     // 夜
@@ -296,5 +296,5 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void ofApp::exit(){
     ofSoundStreamClose();
-//    myWavWriter->wave_write("recording.wav");
+    myWavWriter->wave_write("recording.wav");
 }
