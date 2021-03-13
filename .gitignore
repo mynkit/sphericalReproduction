@@ -5,3 +5,4 @@ bin/sphericalReproductionDebug.app/
 *.DS_Store
 .venv/
 *.jpg
+*.wav
