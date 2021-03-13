@@ -5,5 +5,5 @@
     "height": 10,
     "microphone": [5, 4, 2],
     "sound_source": [-5, -2, 4],
-    "max_order": 6
+    "max_order": 4
 }
