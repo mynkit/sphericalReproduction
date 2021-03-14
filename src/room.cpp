@@ -85,11 +85,10 @@ Room::Room(string roomSettingPath, int fps, float speedOfSound) {
     }
 }
 
-void Room::drawRoom(float opacity) {
+void Room::drawRoom(float opacity, float displayView) {
     // マイク, 音源
     ofSetColor(255, 255, 255, 255);
     microphoneSphere.drawWireframe();
-    ofSetColor(255,255, 255, 255);
     sourceBox.drawWireframe();
     // 音源の中の色
     int sourceAlpha = inputVolume * 10;
@@ -112,10 +111,10 @@ void Room::drawRoom(float opacity) {
         polyline.draw();
     }
     // 部屋の面を描画
-    ofSetColor(255, 255, 255, 40);
+    if (displayView > 0.09) {ofSetColor(255, 255, 255, 40);} else {ofSetColor(255, 255, 255, 40 * opacity);}
     mesh.draw();
     // 部屋の枠を描画
-    ofSetColor(100, 100, 100, 255);
+    if (displayView > 0.09) {ofSetColor(100, 100, 100, 255);} else {ofSetColor(100, 100, 100, 255 * opacity);}
     ofSetLineWidth(1);
     for(int i = 0; i < corners.size(); i++) {
         int next = i + 1;

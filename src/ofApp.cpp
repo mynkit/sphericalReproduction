@@ -24,7 +24,7 @@ void ofApp::setup(){
     daytimeViewOpacity = 1.;
     gotoNight = false;
     displayView = false;
-    displayRoom = true;
+    displayRoom = false;
     
     // audio setting
     fps = FPS;
@@ -112,6 +112,8 @@ void ofApp::update(){
         if (schroederReverbWet > 0.) {
             schroederReverbWet -= 0.002;
         }
+        // 部屋を表示する
+        displayRoom = true;
     }
     if (displayRoom) {
         myRoom->updateSoundRay();
@@ -145,7 +147,7 @@ void ofApp::draw(){
     sphere.draw();
     nightView.unbind();
     // Roomの描画
-    myRoom->drawRoom(roomReverbWet);
+    myRoom->drawRoom(roomReverbWet, displayView);
     cam.end();
 }
 

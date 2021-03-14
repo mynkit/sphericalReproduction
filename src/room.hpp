@@ -23,7 +23,7 @@ class Room {
         float outputVolume;
         Room(string roomSettingPath, int fps, float speedOfSound);
         ~Room();
-        void drawRoom(float opacity);
+        void drawRoom(float opacity, float displayView);
         void setInputVolume(float volume);
         void setOutputVolume(float volume);
         void updateSoundRay();
