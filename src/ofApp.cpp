@@ -112,8 +112,6 @@ void ofApp::update(){
         if (schroederReverbWet > 0.) {
             schroederReverbWet -= 0.002;
         }
-        // 部屋を表示する
-        displayRoom = true;
     }
     if (displayRoom) {
         myRoom->updateSoundRay();
