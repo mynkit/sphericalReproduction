@@ -9,10 +9,12 @@
 
 #include "ofMain.h"
 #include "ofxJSON.h"
+#include "soundRay.hpp"
 
 class Room {
     public:
         vector<vector<float>> corners;
+        soundRay* mySoundRay;
         float height;
         float microphone[3];
         float source[3];
@@ -24,6 +26,7 @@ class Room {
         void drawRoom(float opacity);
         void setInputVolume(float volume);
         void setOutputVolume(float volume);
+        void updateSoundRay();
     private:
         ofxJSONElement json;
         ofSpherePrimitive microphoneSphere;

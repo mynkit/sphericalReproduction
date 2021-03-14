@@ -55,6 +55,7 @@ Room::Room(string roomSettingPath, int fps, float speedOfSound) {
     ydis = -2;
     // z軸の奥方向に図形をずらす
     zdis = 20;
+    mySoundRay = new soundRay(source[0], source[2], source[1], fps, speedOfSound, 0.8, 0.13, corners, height);
     // 立体描画のsetup
     microphoneSphere.set(microphoneWidth * 0.9, 3);
     microphoneSphere.setPosition(microphone[0], microphone[2] - ydis, microphone[1] - zdis);
@@ -90,17 +91,28 @@ void Room::drawRoom(float opacity) {
     microphoneSphere.drawWireframe();
     ofSetColor(255,255, 255, 255);
     sourceBox.drawWireframe();
-    // マイク, 音源の中の色
-    if (opacity > 0.01) {
-        int micAlpha = outputVolume * 10;
-        ofSetColor(250, 125, 127, micAlpha * opacity); // 強い赤色
-        microphoneSphere.draw();
-    }
+    // 音源の中の色
     int sourceAlpha = inputVolume * 10;
     ofSetColor(250, 125, 127, sourceAlpha); // 強い赤色
     sourceBox.draw();
+    // 音線の描画
+    if (opacity > 0.01) {
+        int micAlpha = outputVolume * 10;
+        ofSetColor(250, 125, 127, micAlpha * opacity); // 強い赤色
+        int nowIndex = mySoundRay->bufferIndex;
+        int nextIndex = nowIndex + 1;
+        polyline.clear();
+        if (nextIndex == mySoundRay->bufferSize) {nextIndex = 0;}
+        for (int i = 0; i < mySoundRay->bufferSize - 1; i++) {
+            // 'i < mySoundRay->bufferSize - 1' の'-1'は、折れ線が1周してしまうのを防ぐため
+            polyline.addVertex(mySoundRay->coordinatesBuffer[nextIndex][0], mySoundRay->coordinatesBuffer[nextIndex][2] - ydis, mySoundRay->coordinatesBuffer[nextIndex][1] - zdis);
+            nextIndex++;
+            if (nextIndex == mySoundRay->bufferSize) {nextIndex = 0;}
+        }
+        polyline.draw();
+    }
     // 部屋の面を描画
-    ofSetColor(255, 255, 255, 100 - 60 * (1. - opacity));
+    ofSetColor(255, 255, 255, 40);
     mesh.draw();
     // 部屋の枠を描画
     ofSetColor(100, 100, 100, 255);
@@ -124,4 +136,8 @@ void Room::setOutputVolume(float volume) {
     if (this) {
         outputVolume = volume;
     }
+}
+
+void Room::updateSoundRay() {
+    mySoundRay->update();
 }

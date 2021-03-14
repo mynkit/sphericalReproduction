@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 
-#define BUFFERSIZE 1024; // バッファサイズ(256推奨．大きくすると処理に余裕はでるが遅延が長くなる)
+#define BUFFERSIZE 2048; // バッファサイズ(256推奨．大きくすると処理に余裕はでるが遅延が長くなる)
 #define SAMPLERATE 44100; // サンプルレート(Hz)
 #define MAXHOLDTIME 10000; // 音をメモリに保持する最大秒数
 #define FPS 60; // フレームレート
@@ -114,6 +114,7 @@ void ofApp::update(){
         }
     }
     if (displayRoom) {
+        myRoom->updateSoundRay();
         // 部屋を表示する
         if (roomReverbWet < 1.) {
             roomReverbWet += 0.01;
@@ -182,13 +183,13 @@ void ofApp::audioIn(ofSoundBuffer &buffer){
 //--------------------------------------------------------------
 void ofApp::audioOut(ofSoundBuffer &buffer){
     const int frames = buffer.getNumFrames();
+    const int channels = buffer.getNumChannels();
     float curVol = 0.0;
     schroederReverb.setroomsize(0.8);
     schroederReverb.setwet(schroederReverbWet);
     schroederReverb.setdamp(daytimeViewOpacity);
     float peakingFilterGain = 2. * viewOpacity * (1. - daytimeViewOpacity);
     for(int i = 0; i < frames; i++){
-        const int channels = buffer.getNumChannels();
         float currentSample = inputBuffer[i];
         if (roomReverbWet>0.01 && myRoomReverb) {
             currentSample = myRoomReverb->effect(currentSample, myImageSourceModel->distances, myImageSourceModel->orders, speedOfSound, 0.3, roomReverbWet);
@@ -207,6 +208,7 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         currentSampleL += (1. - schroederReverbWet) * currentSample;
         currentSampleR += (1. - schroederReverbWet) * currentSample;
         currentSample = (currentSampleL + currentSampleR) / 2.;
+        clipping(currentSampleL, currentSampleR);
         buffer[i*channels+0] = currentSampleL;
         buffer[i*channels+1] = currentSampleR;
         curVol += currentSampleL * currentSampleR;
@@ -214,6 +216,14 @@ void ofApp::audioOut(ofSoundBuffer &buffer){
         myWavWriter->recording(currentSampleR); // R
     }
     myRoom->setOutputVolume(sqrt(curVol) * 1.);
+}
+
+//--------------------------------------------------------------
+void ofApp::clipping(float &sampleL, float &sampleR){
+    if (sampleL > 32767) {sampleL = 32767;}
+    if (sampleL < -32767) {sampleL = -32767;}
+    if (sampleR > 32767) {sampleR = 32767;}
+    if (sampleR < -32767) {sampleR = -32767;}
 }
 
 //--------------------------------------------------------------

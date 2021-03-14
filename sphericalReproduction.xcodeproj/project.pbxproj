@@ -13,6 +13,7 @@
 		55169838B1C1CE8A3035E2D8 /* ofxAudioFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3794A57D8EFC646921513FD9 /* ofxAudioFile.cpp */; };
 		6080D50225FAFF2400B29AF6 /* room.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6080D50025FAFF2400B29AF6 /* room.cpp */; };
 		6080D50525FB0EE000B29AF6 /* roomReverb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6080D50325FB0EE000B29AF6 /* roomReverb.cpp */; };
+		6080D50825FD7A9B00B29AF6 /* soundRay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6080D50625FD7A9B00B29AF6 /* soundRay.cpp */; };
 		76F3145EE5DDA21F6EFCEB5B /* peakingFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45720FF3C1E7DF05B0EAA5B1 /* peakingFilter.cpp */; };
 		77699BF6BD81647F909A0009 /* ofxCsv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFECE002FA2814DBD4904261 /* ofxCsv.cpp */; };
 		961C938A9DE29978E6071159 /* allpass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1283FB785281B120BEB53515 /* allpass.cpp */; };
@@ -58,6 +59,8 @@
 		6080D50125FAFF2400B29AF6 /* room.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = room.hpp; sourceTree = "<group>"; };
 		6080D50325FB0EE000B29AF6 /* roomReverb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = roomReverb.cpp; sourceTree = "<group>"; };
 		6080D50425FB0EE000B29AF6 /* roomReverb.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = roomReverb.hpp; sourceTree = "<group>"; };
+		6080D50625FD7A9B00B29AF6 /* soundRay.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = soundRay.cpp; sourceTree = "<group>"; };
+		6080D50725FD7A9B00B29AF6 /* soundRay.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = soundRay.hpp; sourceTree = "<group>"; };
 		61313493CDB52744E22A604D /* json-forwards.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = "json-forwards.h"; path = "../../../addons/ofxJSON/libs/jsoncpp/include/json/json-forwards.h"; sourceTree = SOURCE_ROOT; };
 		6AD72C435068D62F270812E4 /* comb.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = comb.cpp; path = ../../../addons/ofxReverb/libs/comb.cpp; sourceTree = SOURCE_ROOT; };
 		7292868FE2D901CC63F7F94A /* comb.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = comb.hpp; path = ../../../addons/ofxReverb/libs/comb.hpp; sourceTree = SOURCE_ROOT; };
@@ -724,6 +727,8 @@
 				6080D50125FAFF2400B29AF6 /* room.hpp */,
 				6080D50325FB0EE000B29AF6 /* roomReverb.cpp */,
 				6080D50425FB0EE000B29AF6 /* roomReverb.hpp */,
+				6080D50625FD7A9B00B29AF6 /* soundRay.cpp */,
+				6080D50725FD7A9B00B29AF6 /* soundRay.hpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -852,6 +857,7 @@
 				E0CC2C0BD7F977C480B8DD72 /* wavWriter.cpp in Sources */,
 				55169838B1C1CE8A3035E2D8 /* ofxAudioFile.cpp in Sources */,
 				77699BF6BD81647F909A0009 /* ofxCsv.cpp in Sources */,
+				6080D50825FD7A9B00B29AF6 /* soundRay.cpp in Sources */,
 				6080D50225FAFF2400B29AF6 /* room.cpp in Sources */,
 				EE4D1E14E6E3D28AB35B1BB3 /* ofxCsvRow.cpp in Sources */,
 				FB84AAF8D1B7A95266DB5C09 /* jsoncpp.cpp in Sources */,
