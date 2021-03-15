@@ -9,6 +9,7 @@
 #include "imageSourceModel.hpp"
 #include "room.hpp"
 #include "roomReverb.hpp"
+#include "ofxSPK.h"
 
 class ofApp : public ofBaseApp{
 
@@ -75,4 +76,10 @@ class ofApp : public ofBaseApp{
         Room* myRoom;
     private:
         ofxJSONElement json;
+        // 昼と夜の音線
+        ofxSPK::System sys;
+        ofxSPK::Group nightSoundRay;
+        ofxSPK::Group daytimeSoundRay;
+
+        ofImage sprite;
 };

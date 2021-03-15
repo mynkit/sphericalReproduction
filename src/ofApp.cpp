@@ -77,6 +77,20 @@ void ofApp::setup(){
     roomReverbWet = 0.;
     // 深度テストの有効化
     ofEnableDepthTest();
+    // 昼夜の音表現
+    ofDisableArbTex();
+    sprite.load("image.jpg");
+    ofEnableArbTex();
+    sys.setup();
+    nightSoundRay.setup(sys);
+    nightSoundRay.setColor(ofxSPK::RangeC(ofColor(255, 255, 255), ofColor(255, 255, 255)),
+                           ofxSPK::RangeC(ofColor(121, 76, 0, 0), ofColor(0, 0, 0, 100)));
+    nightSoundRay.setLifeTime(1, 10);
+    nightSoundRay.setFriction(0.);
+    nightSoundRay.setSize(0, ofxSPK::RangeF(1, 2));
+    nightSoundRay.setGravity(ofVec3f(0, 0, 0));
+    nightSoundRay.setMass(0.1, 1);
+    nightSoundRay.reserve(0.);
 }
 
 //--------------------------------------------------------------
@@ -93,6 +107,8 @@ void ofApp::update(){
         }
     }
     if (displayView) {
+        nightSoundRay.reserve(100 * (int)myRoom->outputVolume);
+        sys.update();
         // 景色を表示する
         if (viewOpacity < 1.) {
             viewOpacity += 0.01;
@@ -124,6 +140,9 @@ void ofApp::update(){
         if (roomReverbWet > 0.) {
             roomReverbWet -= 0.01;
         }
+        // 部屋が表示されてないときは昼夜の音表示を設定
+        nightSoundRay.setFriction((1. - daytimeViewOpacity) * 0.5);
+        nightSoundRay.setLifeTime(1 + 2 * (1. - daytimeViewOpacity), 10 + 5 * (1. - daytimeViewOpacity));
     }
 }
 
@@ -146,6 +165,15 @@ void ofApp::draw(){
     nightView.unbind();
     // Roomの描画
     myRoom->drawRoom(roomReverbWet, displayView);
+    // 昼夜の音表現
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
+    sprite.bind();
+    ofEnablePointSprites();
+    sys.draw();
+    ofDisablePointSprites();
+    sprite.unbind();
+    nightSoundRay.emitRandom(10, ofVec3f(myRoom->source[0], myRoom->source[2] - myRoom->ydis, myRoom->source[1] - myRoom->zdis));
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     cam.end();
 }
 

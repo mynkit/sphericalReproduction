@@ -27,6 +27,8 @@ class Room {
         void setInputVolume(float volume);
         void setOutputVolume(float volume);
         void updateSoundRay();
+        int zdis;
+        int ydis;
     private:
         ofxJSONElement json;
         ofSpherePrimitive microphoneSphere;
@@ -44,8 +46,6 @@ class Room {
         float yavg;
         float zavg;
         float xyavg; // xy方向(ななめ)から見たときの原点からの距離
-        int zdis;
-        int ydis;
         // 照明
         ofLight light;
 };
