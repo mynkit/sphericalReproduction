@@ -54,6 +54,6 @@ float roomReverb::effect(float sample, vector<float> distances, vector<int> orde
         if(point >= size){point -= size;}
         wetSample += buffer[point] * phase * decay;
     }
-    return (1. - 0.2 * wet) * (sample + wetSample * wet);
+    return (1. - 0.3 * wet) * (sample + wetSample * wet);
 }
 
